@@ -8,10 +8,6 @@ interface Song {
     url:string;
 }
 
-type MusicHomeProps = {
-    songTitle:string,
-    url:string
-}
 
 const MusicHome = () => {
 
@@ -20,6 +16,9 @@ const MusicHome = () => {
    const [song,setSong] = useState<Song>();
 
     const handleTrackEnd = () => {
+        console.log(trackIndex);
+        console.log(setSongs);
+        console.log(setSong);
         setTrackIndex((prevIndex)=>(prevIndex+1)%songs.length);
     }
 
