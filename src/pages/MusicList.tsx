@@ -36,7 +36,7 @@ const MusicList = () => {
     }
 
     return(
-        <div className="flex">
+        <div className="flex items-center justify-between">
             <table className="border-collapse border">
                 <thead>
                     <tr>
