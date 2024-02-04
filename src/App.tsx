@@ -1,4 +1,3 @@
-import { useState } from 'react'
 
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
@@ -7,7 +6,6 @@ import MusicHome from './pages/MusicHome'
 import MusicList from './pages/MusicList'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <main>
