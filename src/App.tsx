@@ -1,19 +1,19 @@
 
 
 import './App.css'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login';
+import MusicList from './pages/MusicList';
 
 
 function App() {
 
   return (
     <main>
-      <nav>
-        <Link to="/music-player-frontend/Login">Login</Link>
-        {" | "}
-        <Link to="/music-player-frontend/list">List</Link>
-      </nav>
-      <Outlet/>
+      <Routes>
+        <Route path='/' element={<Login/>} />
+        <Route path='/list' element={<MusicList/>} />
+      </Routes>
     </main>
   )
 }
