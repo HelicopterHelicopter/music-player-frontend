@@ -36,7 +36,11 @@ const MusicList = () => {
     }
 
     return(
-        <div className="flex items-center justify-between">
+        <div className="grid w-100">
+            <div className="flex">
+                <MusicPlayer url={currentSong?.url} title={currentSong?.title}/>
+            </div>
+            
             <table className="border-collapse border">
                 <thead>
                     <tr>
@@ -54,7 +58,7 @@ const MusicList = () => {
                                    
                 </tbody>
             </table>
-            <MusicPlayer url={currentSong?.url} title={currentSong?.title}/>
+            
         </div>
     );
 }

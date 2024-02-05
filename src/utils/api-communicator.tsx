@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const getBucketSongs = async() => {
-    const res = await axios.get("/awsS3/Bucket");
+    const res = await axios.post("https://k7l85e2xf3.execute-api.ap-south-1.amazonaws.com/UAT/music-player-backend",{
+        command:"LIST"
+    });
 
     if(res.status!=200){
         throw new Error("Unable to fetch bucket objects");
@@ -12,7 +14,8 @@ export const getBucketSongs = async() => {
 }
 
 export const generatePresignedUrl = async (key:string) => {
-    const res = await axios.post("/awsS3/GetSignedUrl",{
+    const res = await axios.post("https://k7l85e2xf3.execute-api.ap-south-1.amazonaws.com/UAT/music-player-backend",{
+        command:"PRESIGNED_URL",
         key:key
     });
 
