@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { generatePresignedUrl, getBucketSongs } from "../utils/api-communicator";
 import MusicPlayer from "../components/MusicPlayer";
-import H5AudioPlayer from "react-h5-audio-player";
+import IndigoButton from "../components/IndigoButton";
+import BuyMeCoffee from "../components/BuyMeCoffee";
 
 
 interface Song {
@@ -38,11 +39,16 @@ const MusicList = () => {
     }
 
     return(
-        <div className="grid w-100">
+        <div className="grid w-100 items-center">
+            <div className="flex">
             <div className="flex">
                 <MusicPlayer url={currentSong?.url} title={currentSong?.title}/>
             </div>
-
+            <div className="w-20">
+                <BuyMeCoffee/>
+            </div>
+            
+            </div>
             
             
             <table className="border-collapse border">
@@ -54,14 +60,17 @@ const MusicList = () => {
                 <tbody>
                 
                         {songs.map((song)=>(
-                            <tr key={song.title} onDoubleClick={()=>handleRowClick(song.Key)}>
-                                <td className="border" key={song.ETag}>{song.Key}</td>
+                            <tr key={song.title} >
+                                <td onDoubleClick={()=>handleRowClick(song.Key)} className="border" key={song.ETag}>{song.Key}</td>
+                                <td className="border"><IndigoButton onClick={()=>handleRowClick(song.key)} type="button">Play</IndigoButton></td>
                             </tr>
                             
                         ))}
                                    
                 </tbody>
             </table>
+
+            
             
         </div>
     );
