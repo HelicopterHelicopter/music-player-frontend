@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { generatePresignedUrl, getBucketSongs } from "../utils/api-communicator";
 import MusicPlayer from "../components/MusicPlayer";
+import H5AudioPlayer from "react-h5-audio-player";
+
 
 interface Song {
     title:string;
@@ -40,6 +42,8 @@ const MusicList = () => {
             <div className="flex">
                 <MusicPlayer url={currentSong?.url} title={currentSong?.title}/>
             </div>
+
+            
             
             <table className="border-collapse border">
                 <thead>
