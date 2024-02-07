@@ -15,6 +15,7 @@ const MusicList = () => {
 
     const [songs,setSongs] = useState<any[]>([]);
     const [currentSong,setCurrentSong] = useState<Song>();
+    const [currentIndex,setCurrentIndex] = useState<number>(0);
 
     useEffect(()=>{
         const getSongs = async () => {
@@ -26,7 +27,8 @@ const MusicList = () => {
         getSongs();
     },[]);
 
-    const handleRowClick = async (key:string) => {
+    const handleRowClick = async (key:string,index:number) => {
+        setCurrentIndex(index);
         const data = await generatePresignedUrl(key);
 
         if(data.message==="OK"){
@@ -38,11 +40,25 @@ const MusicList = () => {
         }
     }
 
+    const handleSongEnd = async()=>{
+        setCurrentIndex(((currentIndex+1)%songs.length));
+        console.log(currentIndex);
+        const nextSong = songs[currentIndex];
+        const data = await generatePresignedUrl(nextSong.Key);
+
+        if(data.message==="OK"){
+            setCurrentSong({
+                title : data.key,
+                url:data.url
+            });
+        }
+    }
+
     return(
         <div className="grid w-100 items-center">
             <div className="flex">
             <div className="flex">
-                <MusicPlayer url={currentSong?.url} title={currentSong?.title}/>
+                <MusicPlayer songEndHandler={handleSongEnd} url={currentSong?.url} title={currentSong?.title}/>
             </div>
             <div className="w-20">
                 <BuyMeCoffee/>
@@ -51,18 +67,17 @@ const MusicList = () => {
             </div>
             
             
-            <table className="border-collapse border">
+            <table className="table-auto border border-slate-500 border-collapse">
                 <thead>
                     <tr>
-                        <th className="border">Song</th>
+                        <th className="border border-slate-600">Song</th>
                     </tr>
                 </thead>
                 <tbody>
                 
-                        {songs.map((song)=>(
+                        {songs.map((song,index)=>(
                             <tr key={song.title} >
-                                <td onDoubleClick={()=>handleRowClick(song.Key)} className="border" key={song.ETag}>{song.Key}</td>
-                                <td className="border"><IndigoButton onClick={()=>handleRowClick(song.key)} type="button">Play</IndigoButton></td>
+                                <td onDoubleClick={()=>handleRowClick(song.Key,index)} className="border border-slate-700" key={song.ETag}> {song.Key} </td>                               
                             </tr>
                             
                         ))}

@@ -6,6 +6,7 @@ const MusicPlayer = (props:any) => {
     return (
         <div className="flex">
             <H5AudioPlayer className="w-full"
+                onEnded={props.songEndHandler}
                 src={props.url}
                 header={props.title}
             />
