@@ -65,8 +65,6 @@ const MusicList = () => {
                         <BuyMeCoffee />
                     </div>
 
-
-
                 </div>
 
             </div>
@@ -82,7 +80,7 @@ const MusicList = () => {
 
                     {songs.map((song, index) => (
                         <tr key={song.title} >
-                            <td onDoubleClick={() => handleRowClick(song.Key, index)} className="border border-slate-700" key={song.ETag}> {song.Key} </td>
+                            <td onDoubleClick={() => handleRowClick(song.Key, index)} key={song.ETag} style={{backgroundColor:index===currentIndex?"cyan":"white"}}> {song.Key} </td>
                         </tr>
 
                     ))}
