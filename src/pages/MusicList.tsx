@@ -39,19 +39,32 @@ const MusicList = () => {
         }
     }
 
+    useEffect(() => {
+        const changeSong = async () => {
+            const nextSong = songs[currentIndex];
+            const data = await generatePresignedUrl(nextSong.Key);
+
+            if (data.message === "OK") {
+                setCurrentSong({
+                    title: data.key,
+                    url: data.url
+                });
+            }
+        };
+
+        changeSong();
+
+    }, [currentIndex]);
+
     const handleSongEnd = async () => {
         setCurrentIndex(((currentIndex + 1) % songs.length));
         console.log(currentIndex);
-        const nextSong = songs[currentIndex];
-        const data = await generatePresignedUrl(nextSong.Key);
 
-        if (data.message === "OK") {
-            setCurrentSong({
-                title: data.key,
-                url: data.url
-            });
-        }
     }
+
+
+
+
 
     return (
         <div className="grid w-100 ">
@@ -69,7 +82,7 @@ const MusicList = () => {
             </div>
 
 
-            <table className="table border border-slate-500 border-collapse" style={{marginTop:"20px"}}>
+            <table className="table border border-slate-500 border-collapse" style={{ marginTop: "20px" }}>
                 <thead>
                     <tr>
                         <th className="border border-slate-600">Song</th>
@@ -79,7 +92,7 @@ const MusicList = () => {
 
                     {songs.map((song, index) => (
                         <tr key={song.title} >
-                            <td onDoubleClick={() => handleRowClick(song.Key, index)} key={song.ETag} style={{backgroundColor:index===currentIndex?"cyan":"white"}}> {song.Key} </td>
+                            <td onClick={() => handleRowClick(song.Key, index)} key={song.ETag} style={{ backgroundColor: index === currentIndex ? "cyan" : "white" }}> {song.Key} </td>
                         </tr>
 
                     ))}
