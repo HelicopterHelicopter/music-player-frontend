@@ -47,7 +47,7 @@ const YoutubePlayer = () => {
                     ))}
                 </tbody>
             </table>
-            
+            <h4>For now copy paste this URL in postman until we find a better solution</h4>
         </div>
     );
 }
